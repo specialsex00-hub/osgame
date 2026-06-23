@@ -1,0 +1,181 @@
+body {
+  text-align: center;
+  font-family: sans-serif;
+  background-color: #202020;
+  color: white;
+}
+
+.hidden {
+  display: none;
+}
+
+button {
+  font-size: 18px;
+  padding: 12px 24px;
+  margin: 8px;
+  cursor: pointer;
+}
+
+#difficultyScreen,
+#selectScreen {
+  margin-top: 40px;
+}
+
+#heroList {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.hero-card {
+  width: 230px;
+  padding: 15px;
+  background: #333;
+  border: 3px solid white;
+  border-radius: 12px;
+}
+
+.hero-card img {
+  width: 170px;
+  height: 170px;
+  object-fit: contain;
+  background: white;
+  border-radius: 10px;
+}
+
+.battle-field {
+  width: 820px;
+  height: 520px;
+  margin: 20px auto 80px auto;
+  background: linear-gradient(#6db7ff, #d7f7ff 45%, #66bb66 45%, #3e8f3e);
+  border: 5px solid white;
+  border-radius: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.enemy-box {
+  position: absolute;
+  top: 45px;
+  right: 110px;
+}
+
+.player-box {
+  position: absolute;
+  bottom: 45px;
+  left: 90px;
+}
+
+.enemy-img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+.hero-img {
+  width: 220px;
+  height: 220px;
+  object-fit: contain;
+}
+
+.status-box {
+  background: white;
+  color: black;
+  border: 3px solid black;
+  border-radius: 12px;
+  padding: 10px;
+  width: 270px;
+}
+
+.enemy-status {
+  position: absolute;
+  left: -380px;
+  top: -20px;
+}
+
+.hero-status {
+  position: absolute;
+  left: 320px;
+  bottom: -70px;
+  width: 300px;
+}
+
+.bar-frame {
+  width: 230px;
+  height: 18px;
+  background: #555;
+  border: 2px solid black;
+  margin: 5px auto;
+}
+
+.hp-bar {
+  height: 100%;
+  background: limegreen;
+  width: 100%;
+}
+
+.mp-bar {
+  height: 100%;
+  background: dodgerblue;
+  width: 100%;
+}
+
+.command-area {
+  width: 820px;
+  margin: 10px auto;
+}
+
+#skillButtons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+#skillButtons button {
+  font-size: 17px;
+  padding: 14px;
+}
+
+#message {
+  width: 780px;
+  min-height: 110px;
+  margin: 20px auto;
+  padding: 20px;
+  background: black;
+  border: 3px solid white;
+  font-size: 20px;
+}
+
+.hero-img.enter-hero {
+  animation: slideHero 0.8s ease-out;
+}
+
+.enemy-img.enter-enemy {
+  animation: slideEnemy 0.8s ease-out;
+}
+
+@keyframes slideHero {
+  from {
+    transform: translateX(-500px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideEnemy {
+  from {
+    transform: translateX(500px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
