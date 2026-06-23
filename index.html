@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>教授の大冒険</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>教授の大冒険</h1>
+
+  <div id="difficultyScreen">
+    <h2>難易度を選べ</h2>
+
+    <button onclick="selectDifficulty('easy')">やさしい</button>
+    <button onclick="selectDifficulty('normal')">普通</button>
+    <button onclick="selectDifficulty('hard')">難しい</button>
+    <button onclick="selectDifficulty('hell')">地獄</button>
+  </div>
+
+  <div id="selectScreen" class="hidden">
+    <h2>勇者を選べ</h2>
+    <p id="selectedDifficultyText"></p>
+    <div id="heroList"></div>
+  </div>
+
+  <div id="battleScreen" class="hidden">
+
+    <div class="battle-field">
+
+      <div class="enemy-box">
+        <div class="status-box enemy-status">
+          <h2 id="enemyName"></h2>
+          <p>HP：<span id="enemyHpText"></span></p>
+          <div class="bar-frame">
+            <div id="enemyHpBar" class="hp-bar"></div>
+          </div>
+        </div>
+
+        <img id="enemyImage" class="enemy-img" src="">
+      </div>
+
+      <div class="player-box">
+        <img id="heroImage" class="hero-img" src="">
+
+        <div class="status-box hero-status">
+          <h2 id="heroName"></h2>
+
+          <p>HP：<span id="heroHpText"></span></p>
+          <div class="bar-frame">
+            <div id="heroHpBar" class="hp-bar"></div>
+          </div>
+
+          <p>MP：<span id="heroMpText"></span></p>
+          <div class="bar-frame">
+            <div id="heroMpBar" class="mp-bar"></div>
+          </div>
+
+          <p>攻撃力：<span id="heroAttackText"></span></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="command-area">
+      <div id="skillButtons"></div>
+    </div>
+
+    <div id="message"></div>
+
+  </div>
+
+  <audio id="battleBGM" loop>
+    <source src="audio/battle.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="bossBGM" loop>
+    <source src="audio/boss.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="data.js"></script>
+  <script src="difficulty.js"></script>
+  <script src="ui.js"></script>
+  <script src="game.js"></script>
+
+</body>
+</html>
