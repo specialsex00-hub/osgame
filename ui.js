@@ -8,8 +8,12 @@ function showHeroSelect() {
     const div = document.createElement("div");
     div.className = "hero-card";
 
+    // 選択画面では selectImage を優先して表示する
+    // selectImage がなければ通常の hero.image を使う
+    const selectImage = hero.selectImage || hero.image;
+
     div.innerHTML = `
-      <img src="${hero.image}">
+      <img src="${selectImage}">
       <h2>${hero.name}</h2>
       <p>HP：${hero.hp}</p>
       <p>MP：${hero.mp}</p>
@@ -25,6 +29,18 @@ function showHeroSelect() {
 function updateBattleUI() {
   document.getElementById("heroName").textContent = player.name;
   document.getElementById("heroImage").src = player.image;
+
+  // 進化表示欄がHTMLにある場合だけ更新する
+  const formText = document.getElementById("heroFormText");
+  const typeText = document.getElementById("heroTypeText");
+
+  if (formText && player.formName) {
+    formText.textContent = "形態：" + player.formName;
+  }
+
+  if (typeText && player.typeText) {
+    typeText.textContent = "タイプ：" + player.typeText;
+  }
 
   document.getElementById("heroHpText").textContent =
     player.hp + " / " + player.maxHp;
