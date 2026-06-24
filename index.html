@@ -9,6 +9,7 @@
 
   <h1>教授の大冒険</h1>
 
+  <!-- 難易度選択 -->
   <div id="difficultyScreen">
     <h2>難易度を選べ</h2>
 
@@ -18,20 +19,25 @@
     <button onclick="selectDifficulty('hell')">地獄</button>
   </div>
 
+  <!-- キャラ選択 -->
   <div id="selectScreen" class="hidden">
     <h2>勇者を選べ</h2>
     <p id="selectedDifficultyText"></p>
     <div id="heroList"></div>
   </div>
 
+  <!-- 戦闘画面 -->
   <div id="battleScreen" class="hidden">
 
     <div class="battle-field">
 
+      <!-- 敵 -->
       <div class="enemy-box">
         <div class="status-box enemy-status">
           <h2 id="enemyName"></h2>
+
           <p>HP：<span id="enemyHpText"></span></p>
+
           <div class="bar-frame">
             <div id="enemyHpBar" class="hp-bar"></div>
           </div>
@@ -40,36 +46,48 @@
         <img id="enemyImage" class="enemy-img" src="">
       </div>
 
+      <!-- プレイヤー -->
       <div class="player-box">
+
         <img id="heroImage" class="hero-img" src="">
 
         <div class="status-box hero-status">
+
           <h2 id="heroName"></h2>
 
+          <!-- 進化状態表示 -->
+          <p id="heroFormText"></p>
+
           <p>HP：<span id="heroHpText"></span></p>
+
           <div class="bar-frame">
             <div id="heroHpBar" class="hp-bar"></div>
           </div>
 
           <p>MP：<span id="heroMpText"></span></p>
+
           <div class="bar-frame">
             <div id="heroMpBar" class="mp-bar"></div>
           </div>
 
           <p>攻撃力：<span id="heroAttackText"></span></p>
+
         </div>
       </div>
 
     </div>
 
+    <!-- コマンド -->
     <div class="command-area">
       <div id="skillButtons"></div>
     </div>
 
+    <!-- メッセージ -->
     <div id="message"></div>
 
   </div>
 
+  <!-- BGM -->
   <audio id="battleBGM" loop>
     <source src="audio/battle.mp3" type="audio/mpeg">
   </audio>
