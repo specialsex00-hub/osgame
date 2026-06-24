@@ -1,7 +1,7 @@
 const heroes = [
   {
     name: "dd と そ",
-    image: "images/dd.png",
+    image: "dd.png",
     hp: 110,
     mp: 55,
     attack: 18,
@@ -16,7 +16,7 @@ const heroes = [
   },
   {
     name: "デブ",
-    image: "images/debu.png",
+    image: "debu.png",
     hp: 330,
     mp: 45,
     attack: 42,
@@ -31,7 +31,7 @@ const heroes = [
   },
   {
     name: "眠り姫",
-    image: "images/nemuri.png",
+    image: "nemuri.png",
     hp: 95,
     mp: 80,
     attack: 24,
@@ -49,7 +49,7 @@ const heroes = [
 const enemies = [
   {
     name: "くま",
-    image: "images/kuma.png",
+    image: "kuma.png",
     hp: 110,
     attack: 15,
     ability: "序盤の門番",
@@ -62,7 +62,7 @@ const enemies = [
   },
   {
     name: "ウナちんぽ",
-    image: "images/unachin.png",
+    image: "unachin.png",
     hp: 170,
     attack: 24,
     ability: "妨害型",
@@ -75,7 +75,7 @@ const enemies = [
   },
   {
     name: "なべふた",
-    image: "images/nabe.png",
+    image: "nabe.png",
     hp: 250,
     attack: 35,
     ability: "ボス",
