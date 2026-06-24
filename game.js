@@ -14,6 +14,90 @@ let waiting = false;
 let battleBGM = null;
 let bossBGM = null;
 
+// ==============================
+// けいたい進化管理
+// 0：けいたい（昔の姿）
+// 1：けいたい
+// 2：教授特効けいたい
+// ==============================
+let playerEvolution = 0;
+
+const keitaiForms = [
+  {
+    name: "けいたい（昔の姿）",
+    image: "images/keitai1.png",
+    hp: 100,
+    mp: 40,
+    attack: 25
+  },
+  {
+    name: "けいたい",
+    image: "images/keitai2.png",
+    hp: 140,
+    mp: 55,
+    attack: 30
+  },
+  {
+    name: "教授特効けいたい",
+    image: "images/keitai3.png",
+    hp: 220,
+    mp: 75,
+    attack: 45
+  }
+];
+
+// ==============================
+// けいたいだけ進化させる関数
+// 注意：ここでは updateBattleUI() を呼ばない
+// enemy がまだ null の時に落ちるのを防ぐため
+// ==============================
+function evolvePlayer(stage, showAlert = true) {
+  playerEvolution = stage;
+
+  const form = keitaiForms[stage];
+
+  player.name = form.name;
+  player.image = form.image;
+
+  player.formName = form.name;
+  player.typeText = form.typeText;
+
+  player.maxHp = form.hp;
+  player.hp = form.hp;
+
+  player.maxMp = form.mp;
+  player.mp = form.mp;
+
+  player.attack = form.attack;
+
+  const formText = document.getElementById("heroFormText");
+  const typeText = document.getElementById("heroTypeText");
+
+  if (formText) {
+    formText.textContent = "形態：" + form.name;
+  }
+
+  if (typeText) {
+    typeText.textContent = "タイプ：" + form.typeText;
+  }
+
+  if (showAlert) {
+    showMessage(form.name + " に進化した！<br>");
+  }
+}
+
+// ==============================
+// 教授特効ダメージ
+// 最終形態だけダメージ1.5倍
+// ==============================
+function calcPlayerDamage(baseDamage) {
+  if (playerEvolution === 2 && player.name === "教授特効けいたい") {
+    return Math.floor(baseDamage * 1.5);
+  }
+
+  return baseDamage;
+}
+
 function selectHero(index) {
   battleBGM = document.getElementById("battleBGM");
   bossBGM = document.getElementById("bossBGM");
@@ -21,6 +105,7 @@ function selectHero(index) {
   const selected = heroes[index];
 
   player = {
+    baseName: selected.name,
     name: selected.name,
     image: selected.image,
     hp: selected.hp,
@@ -30,8 +115,18 @@ function selectHero(index) {
     attack: selected.attack,
     ability: selected.ability,
     sleepRate: selected.sleepRate || 0,
-    skills: selected.skills
+    skills: selected.skills,
+    formName: selected.name,
+    typeText: selected.ability
   };
+
+  // けいたいを選んだ時だけ進化システムを使う
+  if (selected.name === "けいたい") {
+    playerEvolution = 0;
+    evolvePlayer(0, false);
+  } else {
+    playerEvolution = -1;
+  }
 
   enemyIndex = 0;
   enemySleep = false;
@@ -111,7 +206,8 @@ function useSkill(index) {
   const currentAttack = player.attack + attackBuff;
 
   if (skill.type === "attack") {
-    const damage = Math.floor(currentAttack * skill.power);
+    const baseDamage = Math.floor(currentAttack * skill.power);
+    const damage = calcPlayerDamage(baseDamage);
     const repeat = skill.repeat || 1;
 
     message += player.name + " の " + skill.name + "！<br>";
@@ -124,12 +220,13 @@ function useSkill(index) {
 
   if (skill.type === "fixedAttack") {
     const repeat = skill.repeat || 1;
+    const damage = calcPlayerDamage(skill.damage);
 
     message += player.name + " の " + skill.name + "！<br>";
 
     for (let i = 0; i < repeat; i++) {
-      enemy.hp -= skill.damage;
-      message += enemy.name + " に " + skill.damage + " ダメージ！<br>";
+      enemy.hp -= damage;
+      message += enemy.name + " に " + damage + " ダメージ！<br>";
     }
   }
 
@@ -142,12 +239,14 @@ function useSkill(index) {
   }
 
   if (skill.type === "drain") {
-    enemy.hp -= skill.damage;
+    const damage = calcPlayerDamage(skill.damage);
+
+    enemy.hp -= damage;
     player.hp += skill.heal;
     if (player.hp > player.maxHp) player.hp = player.maxHp;
 
     message += player.name + " の " + skill.name + "！<br>";
-    message += enemy.name + " に " + skill.damage + " ダメージ！<br>";
+    message += enemy.name + " に " + damage + " ダメージ！<br>";
     message += "HPを " + skill.heal + " 回復！<br>";
   }
 
@@ -324,11 +423,22 @@ function nextEnemy() {
     waiting = true;
 
     updateBattleUI();
-    showMessage("すべての敵を倒した！<br>単位を取得した！");
+    showMessage("すべての教授を倒した！<br>単位を取得した！");
     return;
   }
 
-  startEnemy();
+  // けいたいを選んでいる時だけ進化する
+  if (playerEvolution !== -1) {
+    if (enemyIndex === 1) {
+      evolvePlayer(1, true);
+    }
+
+    if (enemyIndex === 2) {
+      evolvePlayer(2, true);
+    }
+  }
+
+  setTimeout(startEnemy, 1000);
 }
 
 function playEnterAnimation() {
