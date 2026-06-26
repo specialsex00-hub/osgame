@@ -25,21 +25,21 @@ let playerEvolution = 0;
 const keitaiForms = [
   {
     name: "けいたい（昔の姿）",
-    image: "images/keitai1.png",
+    image: "keitai1.png",
     hp: 100,
     mp: 40,
     attack: 25
   },
   {
     name: "けいたい",
-    image: "images/keitai2.png",
+    image: "keitai2.png",
     hp: 140,
     mp: 55,
     attack: 30
   },
   {
     name: "教授特効けいたい",
-    image: "images/keitai3.png",
+    image: "keitai3.png",
     hp: 220,
     mp: 75,
     attack: 45
